@@ -15,3 +15,9 @@ We processed the hospital data in two different ways.
 ## Key Ideas in the Project
 In the data collection stage, we found the local poverty rates corresponding to the hospital locations. However, this is not reasonable if a hospital is close to the boundary of its county and in fact closer to the centers of some other counties. For this reason, we update the original poverty rate corresponding to hospitals by using weighted poverty rates. To generate the weighted poverty rate for a hospital, we take into consideration all the counties that are within 50 miles of the hospital. The weight of the poverty rates of the neighboring counties is based on the distance between each county center and the hospital. More precisely, the closer the county center is to the hospital, the higher weight its poverty rate has in the weighted poverty rate.
 To get better linear regression models, we separate hospitals into five groups based on their locations: west, midwest, northeast, southwest and southeast. We design the following algorithm:
+1. Initialize 5 linear models corresponding to 5 region groups. See Section 4.1 for details.
+2. For each state, find the closest model among the models generated in Step 1. Then put each state into the group that corresponds to its closest model. A model is the closest if the sum of L2 distance of all hospital points in that state to the model is minimized.
+3. Apply the least squares method to each group and then update the coeffi- cients in the linear equations.
+4. Repeat step 2 and step 3 until the clustering groups stay the same.
+
+By this algorithm, we find 5 best "fit" least squares models. (Illustration of the models are in Project report.)
